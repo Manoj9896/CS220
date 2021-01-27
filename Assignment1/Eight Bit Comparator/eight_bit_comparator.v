@@ -10,9 +10,9 @@ module eight_bit_comparator (A,B,less,equal,greater);
 
     wire [7:0] temp_less,temp_equal,temp_greater;
 
-    assign temp_less[7]=1'bz;           // switch is open for the most significant bit
-    assign temp_equal[7]=1'bz;          //switch is open for the most significant bit
-    assign temp_greater[7]=1'bz;        //switch is open for the most significant bit
+    assign temp_less[7]=1'b0;           // for assigning this values we can easily assume that 9th bit be 0 for both A and B
+    assign temp_equal[7]=1'b1;          // and using this we can easily assign the equal=1 and less=0 and greater=0
+    assign temp_greater[7]=1'b0;        // and we can use them for first comparator in the series
     
     
     one_bit_comparator CM7(A[7],B[7],temp_less[7],temp_equal[7],temp_greater[7],temp_less[6],temp_equal[6],temp_greater[6]);

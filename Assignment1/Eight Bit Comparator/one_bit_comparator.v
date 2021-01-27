@@ -16,28 +16,12 @@ module one_bit_comparator (a,b,less_prev,equal_prev,greater_prev,less_new,equal_
     input a,b,less_prev,equal_prev,greater_prev;
     output less_new,equal_new,greater_new;
 
-    reg  less_new,equal_new,greater_new;
+    wire  less_new,equal_new,greater_new;
 
+    assign less_new = less_prev&(~equal_prev)&(~greater_prev) | (~a)&(b)&(~less_prev)&(equal_prev)&(~greater_prev);
 
-    always @(a or b or less_prev or equal_prev or greater_prev) begin
+    assign equal_new=(~a)&(~b)&(~less_prev)&(equal_prev)&(~greater_prev) | (a)&(b)&(~less_prev)&(equal_prev)&(~greater_prev);
 
-        if (less_prev==1'b1) begin
-            less_new=less_prev;
-            equal_new=equal_prev;
-            greater_new=greater_prev;
-        end
-
-        else if (greater_prev==1'b1) begin
-            less_new=less_prev;
-            equal_new=equal_prev;
-            greater_new=greater_prev;
-        end
-        else begin
-            less_new=(~a)&b;
-            equal_new= ~(a^b);
-            greater_new= a&(~b);
-        end
-        
-    end    
+    assign greater_new = (~less_prev)&(~equal_prev)&(greater_prev) | (a)&(~b)&(~less_prev)&(equal_prev)&(~greater_prev);
     
 endmodule
