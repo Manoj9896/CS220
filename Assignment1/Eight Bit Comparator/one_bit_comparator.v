@@ -1,13 +1,43 @@
-module one_bit_comparator (a,b,ln_1,en_1,gn_1,ln,en,gn);
-    input a,b,ln_1,en_1,gn_1;
-    output ln,en,gn;
+    //
+    //             less(n) equal(n) greater(n)      
+    //                 |    |     |
+    //          _______|____|_____|_______
+    //         |                          |
+    //   a ----|         one              |------ less(n-1)
+    //         |         bit              |------ equal(n-1)
+    //   b ----|      comparator          |------ greater(n-1)
+    //         |                          |
+    //         |__________________________|
+    //        
 
-    wire ln,en,gn;
 
-    assign ln=(~a)&(~b)&ln_1&(~en_1)&(~gn_1) | (~a)&(b)&ln_1&(~en_1)&(~gn_1) | (~a)&(b)&(~ln_1)&(en_1)&(~gn_1) | (a)&(~b)&ln_1&(~en_1)&(~gn_1) | (a)&(b)&ln_1&(~en_1)&(~gn_1);
+module one_bit_comparator (a,b,less_prev,equal_prev,greater_prev,less_new,equal_new,greater_new);
 
-    assign en=(~a)&(~b)&(~ln_1)&(en_1)&(~gn_1) | (a)&(b)&(~ln_1)&(en_1)&(~gn_1);
+    input a,b,less_prev,equal_prev,greater_prev;
+    output less_new,equal_new,greater_new;
 
-    assign gn=(~a)&(~b)&(~ln_1)&(~en_1)&(gn_1) | (~a)&(b)&(~ln_1)&(~en_1)&(gn_1) | (a)&(~b)&(~ln_1)&(en_1)&(~gn_1) | (a)&(~b)&(~ln_1)&(~en_1)&(gn_1) | (a)&(b)&(~ln_1)&(~en_1)&(gn_1);
+    reg  less_new,equal_new,greater_new;
+
+
+    always @(a or b or less_prev or equal_prev or greater_prev) begin
+
+        if (less_prev==1'b1) begin
+            less_new=less_prev;
+            equal_new=equal_prev;
+            greater_new=greater_prev;
+        end
+
+        else if (greater_prev==1'b1) begin
+            less_new=less_prev;
+            equal_new=equal_prev;
+            greater_new=greater_prev;
+        end
+        else begin
+            less_new=(~a)&b;
+            equal_new= ~(a^b);
+            greater_new= a&(~b);
+        end
+        
+    end    
     
 endmodule
