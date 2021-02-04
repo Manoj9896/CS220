@@ -8,7 +8,7 @@ module A2Q4_top;
     rotate rotater(clk,out);
 
     always @(out) begin
-        $display("time = %d out = %b",$time,out);        
+        $display("time = %d clk=%b out = %b",$time,clk,out);        
     end
 
     initial begin

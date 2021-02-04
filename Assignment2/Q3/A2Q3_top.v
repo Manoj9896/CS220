@@ -7,7 +7,7 @@ module A2Q3_top;
     blink toggler(clk,M);
 
     always @(M) begin
-        $display("time = %d M = %b",$time,M);
+        $display("time = %d clk = %b M = %b",$time,clk,M);
     end
 
 
