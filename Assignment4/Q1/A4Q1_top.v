@@ -13,17 +13,27 @@ module A4Q2_top;
 
 
     initial begin
-        $monitor("num1=%d num2=%d sum=%d carry=%b overflow=%b",num1,num2,sum,carry,overflow);
+        $monitor("num1=%d (in binary %b) num2=%d (in binary %b) opcode=%b sum=%d (in binary %b) carry=%b overflow=%b",num1,num1,num2,num2,opcode,sum,sum,carry,overflow);
         
         num1=10;num2=5;opcode=0;
         #1
         num1=10;num2=5;opcode=1;
         #1
-        num1=10;num2=5;opcode=0;
+        num1=127;num2=5;opcode=0;
         #1
-        num1=10;num2=5;opcode=0;
+        num1=127;num2=9;opcode=1;
         #1
-        num1=10;num2=5;opcode=0;
+        num1=55;num2=45;opcode=0;
+        #1
+        num1=100;num2=50;opcode=1;
+        #1
+        num1=-99;num2=-23;opcode=0;
+        #1
+        num1=-84;num2=-46;opcode=0;
+        #1
+        num1=-60;num2=5;opcode=1;
+        #1
+        num1=-51;num2=-1;opcode=1;
         #1
         $finish;
     end

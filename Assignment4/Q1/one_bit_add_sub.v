@@ -1,4 +1,5 @@
 module one_bit_add_sub(a,b,cin,opcode,sum,carry);
+
     input a,b,cin,opcode;
     output wire sum,carry;
 
