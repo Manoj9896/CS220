@@ -2,10 +2,10 @@ module RegisterFile (clk,read_address1,read_address2,write_address,write_data,va
     
     input clk;
     input [4:0] read_address1,read_address2,write_address;
-    input [3:0] write_data;
+    input [15:0] write_data;
     input [2:0] valid_address;
 
-    output reg [3:0] read_data1,read_data2;
+    output reg [15:0] read_data1,read_data2;
 
     reg [15:0] file [0:31];
 
