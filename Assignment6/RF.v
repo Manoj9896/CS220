@@ -9,19 +9,27 @@ module RegisterFile (clk,read_address1,read_address2,write_address,write_data,va
 
     reg [15:0] file [0:31];
 
+    reg [1:0] cycles=0;
+
     always @(posedge clk) begin
         
-        if(valid_address[2]==1)begin // read data2
-            read_data2 <= #20 file[read_address2];
+        cycles=cycles+1;
+
+        if(cycles==2) begin
+            if(valid_address[2]==1)begin // read data2
+                read_data2 <=  file[read_address2];
+            end
+
+            if (valid_address[1]==1) begin // read data1
+                read_data1 <=  file[read_address1];
+            end
+
+            if (valid_address[0]==1) begin // write data
+                file[write_address] <=  write_data;
+            end 
+            cycles <= 0;  
         end
 
-        if (valid_address[1]==1) begin // read data1
-            read_data1 <= #20 file[read_address1];
-        end
-
-        if (valid_address[0]==1) begin // write data
-            file[write_address] <= #20 write_data;
-        end
     end
 
     initial begin
