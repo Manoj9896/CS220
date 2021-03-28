@@ -14,15 +14,21 @@ module A7Q2_top;
 
 
     always @(posedge clk) begin
+
+        // Total instruction are 7 
+        // we will exit as soon as counter reach 8
+
         if(counter==8) begin
             $display("time = %d finalResult = %d",$time,finalResult);
             $finish;
         end
+
         instruction <= instruction_encodings[counter];
 
     end
 
     initial begin
+        // instruction encodings
         // rs source operand 1
         // rt source operand 2
         instruction_encodings[0] = 32'b00100100000000010000000000101101;

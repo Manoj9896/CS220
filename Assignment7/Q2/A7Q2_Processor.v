@@ -1,6 +1,8 @@
 
 `include "A7Q2_constants.h"
 
+// finalResult contains the result after all the instructions get executed
+
 module Processor (clk,instruction,counter,finalResult);
 
     input clk;
@@ -16,7 +18,7 @@ module Processor (clk,instruction,counter,finalResult);
     reg [4:0] rs,rt,rd;
     reg [31:0] currInstruction;
     reg [5:0] opcode,func;
-    reg [15:0] imediate;
+    reg [15:0] immediate;
 
     reg signed [7:0] source1,source2,destination;
 
@@ -24,12 +26,16 @@ module Processor (clk,instruction,counter,finalResult);
 
 
     always @(posedge clk) begin
-
+        
+        // State 0: reads the instruction from the memory row pointed to by the program counter, increments the
+        // program counter by one, and sets state to 1.
         if (state==0) begin
             currInstruction <= instruction;
             counter <= counter+1;
             state <= 1;
         end
+
+        //State 1: finds out the fields of the instruction and sets state to 2. This is known as decoding the instruction.
         
         else if (state==1) begin
             opcode = currInstruction[31:26];
@@ -44,10 +50,12 @@ module Processor (clk,instruction,counter,finalResult);
             else begin
                 rs <= currInstruction[25:21];
                 rt <= currInstruction[20:16];
-                imediate <= currInstruction[15:0];
+                immediate <= currInstruction[15:0];
             end
             state <= 2;
         end
+
+        //State 2: reads the source register operands of the instruction from the register file and sets state to 3.
 
         else if (state==2) begin
             
@@ -61,6 +69,9 @@ module Processor (clk,instruction,counter,finalResult);
             end
             state <= 3;
         end
+
+        //State 3: executes the instruction in an eight-bit adder/subtracter if the instruction is addiu, addu, or subu;
+        //otherwise marks the instruction as invalid. Sets state to 4.
 
         else if (state==3) begin
             
@@ -78,7 +89,7 @@ module Processor (clk,instruction,counter,finalResult);
 
             else begin
                 if(opcode==9)begin
-                    destination <= source1+imediate;
+                    destination <= source1+immediate;
                 end
                 else begin
                     invalid <= 1;
@@ -87,6 +98,8 @@ module Processor (clk,instruction,counter,finalResult);
 
             state <= 4;
         end
+
+        // state 5
 
         else if (state==4) begin
             
@@ -112,6 +125,8 @@ module Processor (clk,instruction,counter,finalResult);
             end
     
         end
+
+        // state 5
 
         else if (state==5) begin
             finalResult = Registerfile[`OUTPUT_REG];
