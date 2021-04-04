@@ -2,7 +2,7 @@ module InstructionMemory (clk,state,pc,instruction);
     
     input clk;
     input [2:0] state;
-    input [3:0] pc;
+    input [7:0] pc;
     
     output reg [31:0] instruction;
 

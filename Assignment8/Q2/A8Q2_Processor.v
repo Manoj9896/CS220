@@ -20,7 +20,7 @@ module Processor (clk,done,finalResult);
     reg [5:0] opcode,func;
     reg [15:0] immediate;
     reg [7:0] address;
-    reg [3:0] pc;
+    reg [7:0] pc;
     reg invalid;
 
     reg signed [7:0] source1,source2,destination;
@@ -84,7 +84,7 @@ module Processor (clk,done,finalResult);
                 end
 
                 else if (func==8) begin
-                    pc <= 15;
+                    pc <= `MAX_PC;
                 end
 
                 else begin

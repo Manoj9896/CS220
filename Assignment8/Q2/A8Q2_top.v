@@ -1,4 +1,8 @@
 
+// Instruction are define in the InstructionMemory module
+// Data Memory is defined in the Processor module (in the end)
+// RefisterFile is defined in the Processor module
+
 `include "A8Q2_Processor.v"
 
 module A8Q1_top;
@@ -11,8 +15,6 @@ module A8Q1_top;
 
     always @(posedge done) begin
         $display("time = %d finalResult = %d",$time,finalResult);
-
-        #10
         $finish;
 
     end

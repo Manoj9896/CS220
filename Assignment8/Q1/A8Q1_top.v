@@ -1,4 +1,8 @@
 
+// Instruction are define in the InstructionMemory module
+// Data Memory is defined in the Processor module (in the end)
+// RefisterFile is defined in the Processor module
+    
 `include "A8Q1_Processor.v"
 
 module A8Q1_top;
