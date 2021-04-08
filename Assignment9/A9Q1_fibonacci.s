@@ -1,3 +1,6 @@
+            .data
+msg1:       .asciiz "Enter the value of n: "
+msg2:       .asciiz "\nThe first n fibonacci numbers are: "
 
             .text
             .globl main
@@ -21,14 +24,20 @@ Label:      addi	$sp, $sp, -12			        # $sp = $sp + -12
             addi	$sp, $sp, 12			        # $sp = $sp + 12            
             jr		$ra					# jump to $ra          
 
-main:       li		$v0,  5		                        # $v0 = 5 
+main:       li		$v0, 4		                        # system call #4 - print string
+            la		$a0, msg1
+            syscall				                # execute
+            li		$v0,  5		                        # $v0 = 5 
             syscall
             addi	$t0, $0, 0			        # $t0 = $0 + 0
             addi	$t1, $v0, 0			        # $t1 = $v0 + 0
-            slti         $t2, $t1, 1
+            slti        $t2, $t1, 1
             addi        $sp, $sp, -4
             sw		$ra, 0($sp)		                # 
             bne		$t2, $0, EXIT	                        # if $t2 != $0 then EXIT
+            li		$v0, 4		                        # system call #4 - print string
+            la		$a0, msg2
+            syscall				                # execute
 loop_begin: addi	$a0, $t0, 0			        # $a0 = $t0 + 0
             jal		Fibonacci				# jump to fibonacci and save position to $ra
             addi	$t0, $t0, 1			        # $t0 = $t0 + 1
