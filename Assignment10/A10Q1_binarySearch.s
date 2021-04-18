@@ -7,7 +7,7 @@ msg1:         .asciiz "Enter the size of array (<=12) : "
 msg2:         .asciiz "Enter the array elements : "
 msg3:         .asciiz "Enter the number/element to be searched : "
 msg4:         .asciiz "Array size must be greater than 0."
-msg5:         .asciiz "Array size should not greater than 15 (problem constraint)."
+msg5:         .asciiz "Array size should not be greater than 12 (problem constraint)."
 Not_found:    .asciiz "Element was not found"
 found:        .asciiz "Found element at index "
 
@@ -53,9 +53,9 @@ main:  li		$v0, 4		                     # system call #4 - print string
        la		$v0, 5		                     # 
        syscall
        addi	       $t1, $v0, 0			       # $t1 = $v0 + 0
-       ble		$t1, $0, Exit1	              # if $t1 <= $0 then Exit
+       ble		$t1, $0, Exit1	              # if $t1 <= $0 then Exit1
        addi	       $t0, $0, 12			       # $t0 = $0 + 12
-       bgt		$t1, $t0, Exit2	              # if $t1 > $t0 then Exit
+       bgt		$t1, $t0, Exit2	              # if $t1 > $t0 then Exit2
        la		$s1, nums		              #
        li		$v0, 4		                     # system call #4 - print string
        la		$a0, msg2
