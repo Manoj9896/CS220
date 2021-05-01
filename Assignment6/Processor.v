@@ -97,7 +97,7 @@ module instruction_processor (clk,opcode,read_address1,read_address2,write_addre
             end
 
             else if (cycles==2) begin
-                valid_address = 3'b000;
+                valid_address <= 3'b000;
                 cycles <= 0;
                 done <=  1;
             end

@@ -1,6 +1,6 @@
 `include "eight_bit_add_sub.v"
 
-module A4Q2_top;
+module A4Q1_top;
 
     reg signed [7:0] num1,num2;
     reg opcode;

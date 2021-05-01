@@ -37,7 +37,7 @@ module read (clk,row_no,input_valid,output_valid,row_data);
 
         if (input_valid==1) begin
 
-            if(open_row==4'bz)begin // row miss
+            if(open_row===4'bz)begin // row miss
                 open_row <= row_no;
                 output_valid <= 0;
                 row_data <= `PERIOD bank[row_no];

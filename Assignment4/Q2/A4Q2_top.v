@@ -1,3 +1,17 @@
+               
+    //              North(0)
+    //                 |
+    //                 |
+    //                 |
+    // West(3)_________|___________East(1)
+    //                 |
+    //                 |
+    //                 |
+    //                 |
+    //              South(2)
+
+
+
 `include "worm_coordinates.v"
 
 module A4Q2_top;
